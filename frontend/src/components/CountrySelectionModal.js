@@ -15,7 +15,7 @@ import PassportBlack from '../images/PassportBlack.svg';
 // Not supporting the USA
 delete supportedCountries['USA'];
 
-appStore.exludedCountries.forEach((isoCode) => {
+appStore.excludedCountries.forEach((isoCode) => {
   delete supportedCountries[isoCode];
 });
 

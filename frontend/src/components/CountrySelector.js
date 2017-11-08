@@ -125,7 +125,11 @@ export default class CountrySelector extends Component {
         <Header icon='world' content='Unfortunately, you cannot continue...' />
         <Modal.Content>
           <p>
-            PICOPS is not offered to US citizens at this stage.
+            {
+              appStore.excludedCountries.length
+                ? 'Citizens of the excluded countries cannot participate.'
+                : 'PICOPS is not offered to US citizens at this stage.'
+            }
           </p>
         </Modal.Content>
         <Modal.Actions>
