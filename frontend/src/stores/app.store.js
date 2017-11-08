@@ -45,6 +45,7 @@ class AppStore extends EventEmitter {
     'blacklist': (countryCodes) => {
       if (typeof countryCodes === 'string') {
         this.excludedCountries = countryCodes.split(',');
+        return;
       }
 
       if (!Array.isArray(countryCodes)) {
