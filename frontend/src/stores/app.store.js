@@ -103,8 +103,6 @@ class AppStore extends EventEmitter {
       }
     });
 
-    console.log('excludedCountries', this.excludedCountries);
-
     const bg = this.padding
       ? '#f1f1f1'
       : 'transparent';
