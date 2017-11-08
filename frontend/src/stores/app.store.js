@@ -30,7 +30,7 @@ let nextErrorId = 1;
 class AppStore extends EventEmitter {
   blacklistedCountries = [];
   certifierAddress = null;
-  exludedCountries = [];
+  excludedCountries = [];
   loaders = {};
   padding = true;
   showStepper = true;
@@ -43,7 +43,15 @@ class AppStore extends EventEmitter {
 
   queryCommands = {
     'blacklist': (countryCodes) => {
-      this.exludedCountries = countryCodes;
+      if (typeof countryCodes === 'string') {
+        this.excludedCountries = countryCodes.split(',');
+      }
+
+      if (!Array.isArray(countryCodes)) {
+        return console.warn('Blacklist must be comma separated string or an array, got ' + typeof countryCodes);
+      }
+
+      this.excludedCountries = countryCodes;
     },
     'no-padding': () => {
       this.padding = false;
@@ -94,6 +102,8 @@ class AppStore extends EventEmitter {
         this.queryCommands[key](parsed[key]);
       }
     });
+
+    console.log('excludedCountries', this.excludedCountries);
 
     const bg = this.padding
       ? '#f1f1f1'
@@ -213,7 +223,7 @@ class AppStore extends EventEmitter {
   }
 
   async fetchBlacklistedCountries () {
-    return Promise.resolve([ 'USA' ]);
+    return Promise.resolve(['USA'].concat(this.excludedCountries));
   }
 
   async loadCountries () {
